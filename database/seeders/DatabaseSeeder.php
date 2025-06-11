@@ -27,55 +27,53 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Oskars Maksims',
             'email' => 'oskarmaksim@gmail.com',
-            'password' => Hash::make('Artjom2009'),
+            'password' => Hash::make('LULV'),
             'role' => 'admin',
         ]);
 
-        Status::create(['name' => 'Новая']);
-        Status::create(['name' => 'В работе']);
-        Status::create(['name' => 'Завершена']);
+        Status::create(['name' => 'New']);
+        Status::create(['name' => 'In progress']);
+        Status::create(['name' => 'Complete']);
 
-        Priority::create(['name' => 'Низкий']);
-        Priority::create(['name' => 'Средний']);
-        Priority::create(['name' => 'Высокий']);
+        Priority::create(['name' => 'Low']);
+        Priority::create(['name' => 'Middle']);
+        Priority::create(['name' => 'High']);
 
-        // Создаем несколько тестовых проектов
+        
         $project1 = Project::factory()->create([
-            'name' => 'Разработка сайта',
-            'description' => 'Создание нового корпоративного сайта.',
-            'created_by' => $admin->id, // Кто создал проект
+            'name' => 'Web development',
+            'description' => 'Neww corporative project development.',
+            'created_by' => $admin->id,
         ]);
         $project2 = Project::factory()->create([
-            'name' => 'Маркетинговая кампания',
-            'description' => 'Запуск новой рекламной кампании.',
+            'name' => 'Marketing company',
+            'description' => 'New advertisment programm.',
             'created_by' => $admin->id,
         ]);
 
-        // Создаем несколько тестовых задач
+        
         Task::factory()->create([
-            'title' => 'Разработать главную страницу',
-            'description' => 'Создать макет и сверстать главную страницу.',
-            'status_id' => Status::where('name', 'В работе')->first()->id,
-            'priority_id' => Priority::where('name', 'Высокий')->first()->id,
+            'title' => 'Develop main page',
+            'description' => 'Create demo version of the page.',
+            'status_id' => Status::where('name', 'In progress')->first()->id,
+            'priority_id' => Priority::where('name', 'High')->first()->id,
             'due_date' => now()->addDays(7),
-            'user_id' => $user->id, // Автор задачи
-            'assigned_to_user_id' => $user->id, // Назначено этому пользователю
+            'user_id' => $user->id,
+            'assigned_to_user_id' => $user->id,
             'project_id' => $project1->id,
         ]);
 
         Task::factory()->create([
-            'title' => 'Написать контент для блога',
-            'description' => 'Подготовить 5 статей для блога.',
-            'status_id' => Status::where('name', 'Новая')->first()->id,
-            'priority_id' => Priority::where('name', 'Средний')->first()->id,
+            'title' => 'Blog content writing',
+            'description' => 'Prepare 5 stories.',
+            'status_id' => Status::where('name', 'New')->first()->id,
+            'priority_id' => Priority::where('name', 'Medium')->first()->id,
             'due_date' => now()->addDays(14),
             'user_id' => $admin->id,
             'assigned_to_user_id' => $user->id,
             'project_id' => $project2->id,
         ]);
 
-        // Если у вас есть другие сидеры, вызовите их здесь:
-        // $this->call(TaskSeeder::class);
-        // $this->call(ProjectSeeder::class);
+        
     }
 }
