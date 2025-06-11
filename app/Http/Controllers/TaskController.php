@@ -10,11 +10,15 @@ use App\Models\User;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskController extends Controller
 {
+    use AuthorizesRequests;
     public function __construct()
     {
+        $this->middleware('auth');
+        
         $this->authorizeResource(Task::class, 'task');
     }
 

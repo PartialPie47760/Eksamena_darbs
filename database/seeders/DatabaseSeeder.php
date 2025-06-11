@@ -17,18 +17,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         
-        User::factory()->create([
+        $admin = User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
 
-        User::factory()->create([
+        
+        $user = User::factory()->create([
             'name' => 'Oskars Maksims',
             'email' => 'oskarmaksim@gmail.com',
             'password' => Hash::make('LULV'),
-            'role' => 'admin',
+            'role' => 'user',
         ]);
 
         Status::create(['name' => 'New']);
@@ -51,7 +52,6 @@ class DatabaseSeeder extends Seeder
             'created_by' => $admin->id,
         ]);
 
-        
         Task::factory()->create([
             'title' => 'Develop main page',
             'description' => 'Create demo version of the page.',
@@ -67,13 +67,11 @@ class DatabaseSeeder extends Seeder
             'title' => 'Blog content writing',
             'description' => 'Prepare 5 stories.',
             'status_id' => Status::where('name', 'New')->first()->id,
-            'priority_id' => Priority::where('name', 'Medium')->first()->id,
+            'priority_id' => Priority::where('name', 'Middle')->first()->id,
             'due_date' => now()->addDays(14),
             'user_id' => $admin->id,
             'assigned_to_user_id' => $user->id,
             'project_id' => $project2->id,
         ]);
-
-        
     }
 }
